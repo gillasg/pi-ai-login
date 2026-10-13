@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync } from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
+import { chmod, readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import lockfile from "proper-lockfile";
@@ -70,6 +70,8 @@ export async function readJsonObject(path: string): Promise<Record<string, unkno
 
 export async function writeJsonObject(path: string, value: Record<string, unknown>): Promise<void> {
   await writeFile(path, JSON.stringify(value, null, 2), { encoding: "utf-8", mode: 0o600 });
+  // `mode` only applies when the file is created; credentials stay owner-only either way.
+  if (process.platform !== "win32") await chmod(path, 0o600);
 }
 
 export function errorCode(error: unknown): string | undefined {

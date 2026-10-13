@@ -1,0 +1,16 @@
+node_modules/
+dist/
+vendor-out/
+*.tgz
+*.tsbuildinfo
+coverage/
+*.log
+.env
+
+# Local planning notes and agent instructions stay out of the repo
+AGENTS.md
+CLAUDE.md
+PLAN*.md
+*.plan.md
+plans/
+notes/

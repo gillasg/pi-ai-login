@@ -1,0 +1,61 @@
+{
+  "name": "pi-ai-login",
+  "version": "0.1.0",
+  "description": "Sign in to any AI model from the browser, no terminal needed. One login for every app built on Pi.",
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@11.4.0",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "pi-ai-login": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "pi",
+    "llm",
+    "oauth",
+    "login",
+    "claude",
+    "chatgpt",
+    "copilot",
+    "openrouter"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-ui.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.ts\" \"ui/**/*.{js,css,html}\" \"test/**/*.mjs\" \"scripts/**/*.mjs\" \"*.{json,yaml,mjs}\" \".github/**/*.yml\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"ui/**/*.{js,css,html}\" \"test/**/*.mjs\" \"scripts/**/*.mjs\" \"*.{json,yaml,mjs}\" \".github/**/*.yml\"",
+    "test": "node --test --test-timeout=60000 test/*.test.mjs",
+    "check": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm build && pnpm test",
+    "pack:vendor": "node scripts/pack-vendor.mjs"
+  },
+  "dependencies": {
+    "@earendil-works/pi-ai": "1.2.0",
+    "proper-lockfile": "4.1.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.6.3",
+    "@types/proper-lockfile": "4.1.4",
+    "eslint": "10.11.0",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.70.1"
+  }
+}

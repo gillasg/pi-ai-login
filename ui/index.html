@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Connect an AI model</title>
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <img src="icon.svg" alt="" width="40" height="40" />
+        <div>
+          <h1>Connect an AI model</h1>
+          <p class="lede">
+            Sign in once. Every app on this computer that uses Pi can then use your models.
+          </p>
+        </div>
+      </header>
+
+      <p class="notice" id="notice" hidden></p>
+
+      <section id="connected-section" hidden>
+        <h2>Connected</h2>
+        <ul class="rows" id="connected"></ul>
+      </section>
+
+      <section id="default-section" hidden>
+        <h2>Default model</h2>
+        <label class="field">
+          <span class="hint">Apps use this model unless they ask for a specific one.</span>
+          <select id="default-model"></select>
+        </label>
+      </section>
+
+      <section>
+        <h2>Sign in with a subscription</h2>
+        <p class="hint">Use a plan you already pay for. No API key needed.</p>
+        <div class="cards" id="subscriptions"></div>
+      </section>
+
+      <section>
+        <h2>Use an API key</h2>
+        <input
+          class="search"
+          id="search"
+          type="search"
+          placeholder="Search providers"
+          autocomplete="off"
+          aria-label="Search providers"
+        />
+        <ul class="rows" id="keys"></ul>
+      </section>
+
+      <footer class="footer" id="footer">
+        <span class="hint" id="footer-status">Nothing connected yet.</span>
+        <button class="primary" id="done" type="button">Done</button>
+      </footer>
+    </div>
+
+    <dialog id="flow" aria-labelledby="flow-title">
+      <div class="flow">
+        <div class="flow-head">
+          <h2 id="flow-title">Sign in</h2>
+          <button class="ghost" id="flow-close" type="button" aria-label="Cancel">✕</button>
+        </div>
+        <div class="flow-body" id="flow-body" aria-live="polite"></div>
+      </div>
+    </dialog>
+
+    <template id="finished">
+      <div class="finished">
+        <div class="check" aria-hidden="true">✓</div>
+        <h2>You're all set</h2>
+        <p class="hint">You can close this tab.</p>
+      </div>
+    </template>
+  </body>
+</html>

@@ -15,7 +15,8 @@ export function defaultAgentDir(): string {
 }
 
 const STALE_MS = 30_000;
-const RETRY_UNTIL_MS = 10_000;
+// Wait as long as the Pi CLI does before treating a lock as stuck.
+const RETRY_UNTIL_MS = 30_000;
 
 /**
  * Runs `fn` while holding the same lock the Pi CLI takes on this file
@@ -47,7 +48,9 @@ async function acquire(path: string, signal?: AbortSignal): Promise<() => Promis
       return await lockfile.lock(path, { realpath: false, retries: 0, stale: STALE_MS });
     } catch (error) {
       if (errorCode(error) !== "ELOCKED" || Date.now() > deadline) throw error;
-      await new Promise((done) => setTimeout(done, Math.min(20 * 2 ** attempt, 500)));
+      // Jittered so many waiting writers do not retry in lockstep.
+      const delay = Math.min(10 * 2 ** attempt, 250) * (0.5 + Math.random());
+      await new Promise((done) => setTimeout(done, delay));
     }
   }
 }
